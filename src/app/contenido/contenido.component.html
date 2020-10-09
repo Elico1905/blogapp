@@ -1,0 +1,39 @@
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+    <span class="navbar-brand">
+        <i class="fas fa-blog"></i>
+        Blog
+    </span>
+</nav>
+
+<div class="container rounded border mb-3 shadow bg-white">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col m-3">
+            <div class="card" style="width: 18rem;" ng-cloak>
+                <div class="card-header">
+                    {{inicio}}
+                </div>
+                <div class="card-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fas fa-user"></i></div>
+                        </div>
+                        <input type="text" class="form-control" id="user" 
+                        placeholder="Nombre de usuario" [(ngModel)]="user">
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fas fa-key"></i></div>
+                        </div>
+                        <input type="password" class="form-control" id="password" 
+                        placeholder="Contraseña" [(ngModel)]="password">
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <button type="button" class="btn btn-primary" id="entrar" (click)="entrar()">Entrar</button>
+                </div>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>

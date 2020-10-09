@@ -1,0 +1,108 @@
+<app-menu></app-menu>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    Tema: {{tema.nombre}}
+                </div>
+                <div class="card-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Mensaje</div>
+                        </div>
+                        <input type="text" class="form-control" id="idTema" placeholder="Id del tema"
+                            [(ngModel)]="nuevoMsg.mensaje">
+                    </div>
+                    <!-- <ck-editor name="mensajesEditor" [(ngModel)]="nuevoMsg.mensaje" skin="moono-lisa" language="es" [fullPage]="false"></ck-editor> -->
+                </div>
+                <div class="card-footer text-center">
+                    <button type="button" class="btn btn-primary" id="entrar" (click)="agregarMsg()">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <table class="table table-hover table-dark">
+                <thead>
+                    <tr>
+                        <th>Id msj</th>
+                        <th>Id tema</th>
+                        <th>Mensaje</th>
+                        <th>User</th>
+                        <th>Fecha</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let msj of mensajes">
+                        <td>{{msj.idmsj}}</td>
+                        <td>{{msj.idtema}}</td>
+                        <td [innerHTML]="msj.mensaje"></td>
+                        <td>{{msj.user}}</td>
+                        <td>{{msj.fecha}}</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm" *ngIf="level=='A' || msj.user==user"
+                                (click)="temporalMensaje(msj)" data-toggle='modal' data-target='#modalEditar'><i class="fas fa-pen"></i></button>
+                            &nbsp;
+                            <button class="btn btn-danger btn-sm" *ngIf="level=='A' || msj.user==user"
+                                (click)="temporalMensaje(msj)" data-toggle='modal' data-target='#modalEliminar'><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Modal Para Editar -->
+<div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Modificar mensaje</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Mensaje:</div>
+                    </div>
+                    <input type="text" class="form-control" id="mensajeEditar" placeholder="Escribe el mensaje"
+                        [(ngModel)]="tmpMsg.mensaje">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                    (click)="guardarCambios()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Para Eliminar -->
+<div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Eliminar Tema</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>¿Esta seguro que quiere eliminar el mensaje {{tmpMsg.idmsj}}?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"
+                    (click)="confirmarEliminar()">Si</button>
+            </div>
+        </div>
+    </div>
+</div>
